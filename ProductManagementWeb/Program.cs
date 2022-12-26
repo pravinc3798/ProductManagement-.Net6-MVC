@@ -1,5 +1,7 @@
 using BusinessLayer.Interface;
 using BusinessLayer.Service;
+using Microsoft.EntityFrameworkCore;
+using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using RepositoryLayer.Service;
 
@@ -7,6 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<DbProductManagementContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("ProductDB")
+    ));
 builder.Services.AddTransient<IProductBL, ProductBL>();
 builder.Services.AddTransient<IProductRL, ProductRL>();
 var app = builder.Build();

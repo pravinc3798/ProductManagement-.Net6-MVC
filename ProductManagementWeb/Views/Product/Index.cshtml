@@ -1,0 +1,106 @@
+﻿@using CommonLayer.Model
+@model IEnumerable<ViewProductModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Category List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; New Product
+            </a>
+        </div>
+    </div>
+    <br /><br />
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    Product Id
+                </th>
+                <th>
+                    Code
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Expiry Date
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Date Added
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td width="2%">
+                        @product.ProductId
+                    </td>
+                    <td width="3%">
+                        @product.ProductCode
+                    </td>
+                    <td width="10%">
+                        @product.ProductName
+                    </td>
+                    <td width="25%">
+                        @product.ProductDescription
+                    </td>
+                    <td width="5%">
+                        @product.ExpiryDate.ToShortDateString()
+                    </td>
+                    <td width="5%">
+                        @product.Category
+                    </td>
+                    <td width="15%">
+                        <img src="@product.ProductImage" width="200px" height="200px">
+                    </td>
+                    <td width="3%">
+                        @((bool)product.IsActive ? "Active" : "Suspended")
+                    </td>
+                    <td width="5%">
+                        @product.CreationDate.Date.ToShortDateString()
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+@if (ViewBag.Page > 0)
+{
+    <a href="@Url.Action("Index", new { page = ViewBag.Page - 1 })" 
+       class="btn btn-default">
+        &laquo; Prev
+    </a>
+}
+@if (ViewBag.Page < ViewBag.MaxPage)
+{
+    <a href="@Url.Action("Index", new { page = ViewBag.Page + 1 })" 
+       class="btn btn-default">
+        Next &raquo;
+    </a>
+}
