@@ -4,26 +4,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Category List</h2>
+            <h2 class="text-primary">Products</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Create" class="btn btn-primary">
+            <a asp-controller="Product" asp-action="Create" class="btn btn-dark">
                 <i class="bi bi-plus-circle"></i> &nbsp; New Product
             </a>
         </div>
     </div>
     <br /><br />
 
-    <table class="table table-bordered table-striped" style="width:100%">
+    <table class="table table-hover table-striped">
         <thead>
-            <tr>
+            <tr >
                 <th>
-                    Product Id
+                   Id
                 </th>
                 <th>
                     Code
@@ -31,7 +29,7 @@
                 <th>
                     Name
                 </th>
-                <th>
+                <th >
                     Description
                 </th>
                 <th>
@@ -49,38 +47,38 @@
                 <th>
                     Date Added
                 </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
+            
             @foreach (var product in Model)
             {
                 <tr>
-                    <td width="2%">
+                    <td >
                         @product.ProductId
                     </td>
-                    <td width="3%">
+                    <td >
                         @product.ProductCode
                     </td>
-                    <td width="10%">
+                    <td  >
                         @product.ProductName
                     </td>
-                    <td width="25%">
+                    <td style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         @product.ProductDescription
                     </td>
-                    <td width="5%">
+                    <td >
                         @product.ExpiryDate.ToShortDateString()
                     </td>
-                    <td width="5%">
+                    <td >
                         @product.Category
                     </td>
-                    <td width="15%">
-                        <img src="@product.ProductImage" width="200px" height="200px">
+                    <td >
+                        <img src="@product.ProductImage" width="50px" height="50px">
                     </td>
-                    <td width="3%">
+                    <td >
                         @((bool)product.IsActive ? "Active" : "Suspended")
                     </td>
-                    <td width="5%">
+                    <td >
                         @product.CreationDate.Date.ToShortDateString()
                     </td>
                 </tr>
